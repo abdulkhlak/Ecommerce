@@ -55,7 +55,33 @@
                         </ul>
                     </li>
                 </ul>
+                <ul class="treeview-menu">
 
+                    <li>
+                        <a href="#"><i class="fa fa-circle-o"></i> Products<i class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{route('product_view')}}"> All Products</a></li>
+                            <li><a href="{{route('product_add')}}"> Add New Product</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+
+
+
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <span>Sliders</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+
+                <ul class="treeview-menu">
+                    <li><a href="{{route('sliders_view')}}"> All Sliders</a></li>
+                    <li><a href="{{route('slider_add')}}"> Add New Slider</a></li>
+
+                </ul>
 
             </li>
             <li class="treeview">
@@ -75,6 +101,7 @@
                 </ul>
 
             </li>
+
 
 
         </ul>

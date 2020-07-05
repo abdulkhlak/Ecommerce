@@ -1,14 +1,14 @@
 @extends('backend.layouts.master')
 @section('title')
-    {{ __('Subcategories List')}}
+    {{ __('Product List')}}
 @endsection
 @section('main-content')
     <section class="content-header">
-        <h1>{{ __('Subcategories List')}}</h1>
+        <h1>{{ __('Product List')}}</h1>
         <ol class="breadcrumb">
             <li><a href="{{route('dashboard')}}"><i class="fa fa-dashboard"></i> {{ __('Home')
             }}</a></li>
-            <li class="active">{{ __('Subcategories List')}}</li>
+            <li class="active">{{ __('Product List')}}</li>
         </ol>
     </section>
     <!-- Main content -->
@@ -19,7 +19,7 @@
         <section class="content">
             <div class="row">
                 <section class="content-header">
-                    <h1><a href="{{route('subcategories_add')}}" class="btn btn-primary">{{ __('Add New')}}</a></h1>
+                    <h1><a href="{{route('product_add')}}" class="btn btn-primary">{{ __('Add New')}}</a></h1>
 
                 </section>
                 <div class="col-xs-12">
@@ -33,32 +33,38 @@
                                 <thead>
                                 <tr>
                                     <th>{{ __('SL')}}</th>
-                                    <th>{{ __('Parent Category')}}</th>
-                                    <th>{{ __('Sub category')}}</th>
-                                    <th>{{ __('Sub category slug')}}</th>
+                                    <th>{{ __('Product Name')}}</th>
+                                    <th>{{ __('buying')}}</th>
+                                    <th>{{ __('selling')}}</th>
+                                    <th>{{ __('special')}}</th>
+                                    <th>{{ __('Offer Date')}}</th>
                                     <th>{{ __('Status')}}</th>
                                     <th>{{ __('Action')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($subcategories as $key => $cat)
+                                @foreach($products as $key => $product)
                                     <tr>
 
                                         <td>{{$key+1}}</td>
-                                        <td>{{$cat->category->category_name}}</td>
-                                        <td>{{$cat->subcat_name}}</td>
-                                        <td>{{$cat->subcat_slug}}</td>
+                                        <td>{{$product->product_name}}</td>
+                                        <td><input type="text"  data-id =" {{$product->id}}" class="form-control buying_price"
+                                                   value="{{$product->buying_price}}"></td>
+                                        <td>{{$product->selling_price}}</td>
+                                        <td>{{$product->special_price}}</td>
+
+                                        <td>{{$product->special_start.'-'.$product->special_end}}</td>
                                         <td><input class="btn btn-sm" type="checkbox"
                                                    data-toggle="toggle" data-size="mini"
                                                    data-on="active" data-offstyle="danger"
-                                                   id="subCategoryStatus" data-id="{{$cat->id}}"
-                                                   data-off="inactive"{{$cat->status ==1
+                                                   id="productStatus" data-id="{{$product->id}}"
+                                                   data-off="inactive"{{$product->status ==1
                                                 ?'checked':''}}></td>
                                         <td>
-                                            <a href="{{route('subcategories_edit', base64_encode($cat->id))}}"
-                                               class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
-                                            <a href="{{route('subcategories_delete', base64_encode
-                                     ($cat->id))}}" id="delete" class="btn btn-sm btn-primary"><i class="fa fa-trash"></i></a></td>
+                                            <a href="{{route('slider_edit', base64_encode($product->id))}}"
+                                               class="btn btn-xs btn-primary"><i class="fa fa-edit"></i></a>
+                                            <a href="{{route('slider_delete', base64_encode
+                                     ($product->id))}}" id="delete" class="btn btn-xs btn-primary"><i class="fa fa-trash"></i></a></td>
 
                                     </tr>
                                 @endforeach

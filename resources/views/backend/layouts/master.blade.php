@@ -39,6 +39,8 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@9/dist/sweetalert2.min.js"></script>
     <script src="https://kit.fontawesome.com/c692cc0aa4.js" crossorigin="anonymous"></script>
     <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@3/dark.css" rel="stylesheet">
+    <!-- CK Editor -->
+    <script src="https://cdn.ckeditor.com/4.4.3/standard/ckeditor.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -66,6 +68,7 @@
     </div><!-- /.content-wrapper -->
 
     @include('backend.include.footer')
+
 </div><!-- ./wrapper -->
 <!-- jQuery 2.1.4 -->
 <script src="{{asset('backend')}}/plugins/jQuery/jQuery-2.1.4.min.js"></script>
@@ -93,6 +96,16 @@
 <!-- datepicker -->
 <script src="{{asset('backend')}}/plugins/datepicker/bootstrap-datepicker.js"></script>
 <!-- Bootstrap WYSIHTML5 -->
+{{--<script>--}}
+{{--    $(function () {--}}
+{{--        // Replace the <textarea id="editor1"> with a CKEditor--}}
+{{--        // instance, using default configuration.--}}
+{{--        CKEDITOR.replace('long_description');--}}
+{{--        //bootstrap WYSIHTML5 - text editor--}}
+{{--        $(".textarea").wysihtml5();--}}
+{{--    });--}}
+{{--</script>--}}
+
 <script src="{{asset('backend')}}/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <script src="{{asset('backend')}}/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="{{asset('backend')}}/plugins/datatables/dataTables.bootstrap.min.js"></script>
@@ -125,6 +138,7 @@
         });
     });
 </script>
+
 <script>
     $(function () {
         $("#example1").DataTable();

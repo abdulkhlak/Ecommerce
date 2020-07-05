@@ -61,10 +61,40 @@ Route::group(['prefix' => 'subcategories',  'middleware' => 'auth'], function()
     Route::get('/view','Backend\SubcategoryController@view')->name('subcategories_view');
     Route::get('/add','Backend\SubcategoryController@add')->name('subcategories_add');
     Route::post('/store','Backend\SubcategoryController@store')->name('subcategories_store');
-    Route::get('/subcategoryStatus/{id}/{s}','Backend\SubcategoryController@subcategoryStatus')->name('subcategories_status');
+    Route::get('/subCategoryStatus/{id}/{s}','Backend\SubcategoryController@subCategoryStatus')->name('subcategories_status');
     Route::get('/edit/{id}','Backend\SubcategoryController@edit')->name('subcategories_edit');
     Route::post('/update/{id}','Backend\SubcategoryController@update')->name('subcategories_update');
     Route::get('/delete/{id}','Backend\SubcategoryController@delete')->name('subcategories_delete');
+
+});
+
+// SLIDERS ROUTE
+
+Route::group(['prefix' => 'sliders',  'middleware' => 'auth'], function()
+{
+    Route::get('/view','Backend\SliderController@view')->name('sliders_view');
+    Route::get('/add','Backend\SliderController@add')->name('slider_add');
+    Route::post('/store','Backend\SliderController@store')->name('slider_store');
+    Route::get('/sliderStatus/{id}/{s}','Backend\SliderController@sliderStatus')->name('slider_status');
+    Route::get('/edit/{id}','Backend\SliderController@edit')->name('slider_edit');
+    Route::post('/update/{id}','Backend\SliderController@update')->name('slider_update');
+    Route::get('/delete/{id}','Backend\SliderController@delete')->name('slider_delete');
+
+});
+
+// SLIDERS ROUTE
+
+Route::group(['prefix' => 'products',  'middleware' => 'auth'], function()
+{
+    Route::get('/view','Backend\ProductController@view')->name('product_view');
+    Route::get('/add','Backend\ProductController@add')->name('product_add');
+    Route::post('/store','Backend\ProductController@store')->name('product_store');
+    Route::get('/productStatus/{id}/{s}','Backend\ProductController@productStatus')->name('product_status');
+    Route::get('/find-categories/{id}','Backend\ProductController@findCategories')->name('find_categories');
+    Route::get('/upByingPrice/{id}/{price}','Backend\ProductController@upByingPrice')->name('upByingPrice');
+    Route::get('/edit/{id}','Backend\ProductController@edit')->name('product_edit');
+    Route::post('/update/{id}','Backend\ProductController@update')->name('product_update');
+    Route::get('/delete/{id}','Backend\ProductController@delete')->name('product_delete');
 
 });
 

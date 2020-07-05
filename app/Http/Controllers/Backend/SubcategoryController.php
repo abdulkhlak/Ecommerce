@@ -1,124 +1,1 @@
-<?php
-
-namespace App\Http\Controllers\backend;
-
-use App\Http\Controllers\Controller;
-use App\model\categories;
-use App\model\subcategories;
-use Illuminate\Http\Request;
-
-class SubcategoryController extends Controller
-{
-    public function view()
-    {
-        $subcategories = subcategories::get();
-        return view('backend.storemanagment.subcategories.subcategory_view', compact('subcategories'));
-
-    }
-
-    public function add()
-
-    {
-        $category= categories::orderBy('category_name','ASC')->get();
-        return view('backend.storemanagment.subcategories.subcategory_add',compact('category'));
-    }
-
-    public function store(Request $request)
-    {
-        $this->validate($request, [
-            'brand_name' => ['required', 'string', 'max:100','unique:brands,brand_name'],
-        ]);
-        $brands= null;
-        try {
-            $brand_name = $request->brand_name;
-            $brands = brands::create([
-                'brand_name' => $brand_name,
-                'brand_slug' => slugify($brand_name),
-                'status' => $request->status,
-
-            ]);
-            if ($request->file('brand_logo')) {
-                $file = $request->file('brand_logo');
-                @unlink(public_path('upload/store_managment/brands_logo/' . $brands->brand_logo));
-                $filename = date('YmdHi') . $file->getClientOriginalName();
-                $file->move(public_path('upload/store_managment/brands_logo'), $filename);
-                $brands['brand_logo'] = $filename;
-            }
-            $brands->save();
-
-
-
-        } catch (Exception $exception) {
-            $brands = false;
-        }
-        if ($brands == true) {
-            return redirect()->route('brands_view')->with('success', 'Yah ! Brand has been successfully created !');
-        } else {
-            return back()->with('error', 'Oops! Unable to create a brand ');
-        }
-
-    }
-
-    public function BrandsStatus($id, $status)
-    {
-        $users = brands::find($id);
-        $users->status = $status;
-        $users->save();
-        return response()->json(['message' => 'success']);
-    }
-
-    public function edit($id)
-    {
-        $id= base64_decode($id);
-        $brands = brands::find($id);
-        return view('backend.storemanagment.brands.brand_edit', compact('brands'));
-    }
-
-
-    public function update(Request $request , $id)
-    {
-        $request->validate([
-            "brand_name" => "required| unique:brands,brand_name,".$id,
-
-        ]);
-        $brand = brands::find($id);
-        $success= null;
-        try {
-            $brand_name = $request->brand_name;
-            $brand-> update([
-                'brand_name' => $brand_name,
-                'brand_slug' => slugify($brand_name),
-
-            ]);
-            if ($request->file('brand_logo')) {
-                $file = $request->file('brand_logo');
-                @unlink(public_path('upload/store_managment/brands_logo/' . $brand->brand_logo));
-                $filename = date('YmdHi') . $file->getClientOriginalName();
-                $file->move(public_path('upload/store_managment/brands_logo'), $filename);
-                $brand['brand_logo'] = $filename;
-            }
-            $brand->save();
-
-
-            $success = true;
-        } catch (Exception $exception) {
-            $success = false;
-        }
-        if ($success === true) {
-            return redirect()->route('brands_view')->with('success', 'Yah ! Brand has been successfully update !');
-        } else {
-            return back()->with('error', 'Oops! Unable to update a brand ');
-        }
-
-
-
-    }
-    public function delete($id)
-    {
-        $id = base64_decode($id);
-
-        $brand = brands::find($id);
-        $brand->delete();
-        return redirect()->route('brands_view')->with('success', ' brand has been delete successfully');
-    }
-}
+<?phpnamespace App\Http\Controllers\backend;use App\Http\Controllers\Controller;use App\model\categories;use App\model\subcategories;use Illuminate\Http\Request;class SubcategoryController extends Controller{    public function view()    {        $subcategories = subcategories::with('category')->orderBy('id','desc')->get();        return view('backend.storemanagment.subcategories.subcategory_view', compact('subcategories'));    }    public function add()    {        $categories= categories::orderBy('category_name','ASC')->get();        return view('backend.storemanagment.subcategories.subcategory_add',compact('categories'));    }    public function store(Request $request)    {        $this->validate($request, [            'category' => ['required'],            'subcat_name' => ['required', 'string', 'max:100','unique:subcategories,subcat_name'],            'status' => ['required'],        ]);        $subcat= null;        try {            $subcat_name = $request->subcat_name;            $sub_cat = subcategories::create([                'category_id' => $request->category,                'subcat_name' => $subcat_name,                'subcat_slug' => slugify($subcat_name),                'status' => $request->status,            ]);            if ($request->file('subcat_logo')) {                $file = $request->file('subcat_logo');                @unlink(public_path('upload/store_managment/sub_cat_logo/' . $sub_cat->subcat_logo));                $filename = date('YmdHi') . $file->getClientOriginalName();                $file->move(public_path('upload/store_managment/sub_cat_logo'), $filename);                $sub_cat['subcat_logo'] = $filename;            }            $sub_cat->save();            $subcat = true;        } catch (Exception $exception) {            $subcat = false;        }        if ($subcat == true) {            return redirect()->route('subcategories_view')->with('success', 'Yah ! sub category has been successfully created !');        } else {            return back()->with('error', 'Oops! Unable to create a sub category ');        }    }    public function subCategoryStatus($id, $status)    {        $subCategoryStatus = subcategories::find($id);        $subCategoryStatus->status = $status;        $subCategoryStatus->save();        return response()->json(['message' => 'success']);    }    public function edit($id)    {        $id= base64_decode($id);        $categories= categories::orderBy('category_name','ASC')->get();        $sub_edit = subcategories::find($id);        return view('backend.storemanagment.subcategories.subcategory_edit', compact('sub_edit','categories'));    }    public function update(Request $request , $id)    {        $request->validate([            "subcat_name" => "required| unique:subcategories,subcat_name,".$id,        ]);        $subcategories = subcategories::find($id);        $success= null;        try {            $subcat_name = $request->subcat_name;            $subcategories-> update([                'category_id' => $request->category,                'subcat_name' => $subcat_name,                'subcat_slug' => slugify($subcat_name),                'status' => $request->status,            ]);            if ($request->file('subcat_logo')) {                $file = $request->file('subcat_logo');                @unlink(public_path('upload/store_managment/sub_cat_logo/' . $subcategories->subcat_logo));                $filename = date('YmdHi') . $file->getClientOriginalName();                $file->move(public_path('upload/store_managment/sub_cat_logo'), $filename);                $subcategories['subcat_logo'] = $filename;            }            $subcategories->save();            $success = true;        } catch (Exception $exception) {            $success = false;        }        if ($success === true) {            return redirect()->route('subcategories_view')->with('success', 'Yah ! Sub category has been successfully update !');        } else {            return back()->with('error', 'Oops! Unable to update a Sub category ');        }    }    public function delete($id)    {        $id = base64_decode($id);        $subcategories = subcategories::find($id);        $subcategories->delete();        return redirect()->route('subcategories_view')->with('success', ' sub category has been delete successfully');    }}

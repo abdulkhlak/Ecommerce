@@ -31,7 +31,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <input type="brand_slug" class="form-control" name="brand_slug" id="brand_slug"
+                                    <input type="text" class="form-control" name="brand_slug" id="brand_slug"
                                            placeholder=" Brand Slug" value=""/>
                                     <font style="color: red">{{($errors->has('brand_slug'))?($errors->first('brand_slug')):''}}</font>
                                 </div>
