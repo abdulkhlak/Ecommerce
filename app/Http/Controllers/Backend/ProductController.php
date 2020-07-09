@@ -37,7 +37,7 @@ class ProductController extends Controller
             $image= $request->file('image');
             $fileEx= $image->getClientOriginalName();
             $fileName= date('Y-m-d').$fileEx;
-            Image::make($image)->resize(350,100)->save(public_path('upload/products/'). $fileName);
+            Image::make($image)->resize(350,350)->save(public_path('upload/products/'). $fileName);
             $gallery =[];
             if ($request->hasFile('files'))
             {
@@ -47,7 +47,7 @@ class ProductController extends Controller
                 foreach ($images as $image){
                     $fileEx = $image->getClientOriginalName();
                     $imageName = date('Y-m-d').$i. '.'.$fileEx;
-                    Image::make($image)->resize(350,100)->save(public_path('upload/products/'). $imageName);
+                    Image::make($image)->resize(350,350)->save(public_path('upload/products/'). $imageName);
                array_push($gallery,$imageName);
                $i++;
                 }

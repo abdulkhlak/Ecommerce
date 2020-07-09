@@ -13,15 +13,23 @@ class CategoriesTableSeeder extends Seeder
     public function run()
     {
         $faker= Faker\Factory::create();
-        foreach (range(1,10) as $index)
+        $categories = ["Electronics","Shoes","Watches","Health and Beauty","Jewellery",
+            "Kids and Babies","Sports","Home and Garden","Washing Machine","T-shirts/ Polo Shirts","Sunflower Oil"
+        ];
+
+        foreach (range(1,13) as $index)
         {
             $category = $faker->name;
-            categories::create([
-                'category_name'=>$faker->name,
-                'category_logo'=>$faker->name,
-                'category_slug'=> slugify($category),
-                'status'=>rand(0,1)
-            ]);
+            foreach ($categories as $category){
+                categories::create([
+                    'category_name'=>$category,
+                    'category_logo'=>$faker->imageUrl(),
+                    'category_slug'=> slugify($category),
+                    'status'=>'1'
+                ]);
+
+            }
+
         }
     }
 }

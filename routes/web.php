@@ -101,5 +101,16 @@ Route::group(['prefix' => 'products',  'middleware' => 'auth'], function()
 //                  FRONTEND ROUTE
 
 Route::get('/','Frontend\FrontendController@index')->name('home');
+Route::group(['prefix' => 'category'], function() {
+    Route::get('/subcategory/{slug}','Frontend\FrontendController@category')->name('category');
+
+});Route::group(['prefix' => 'subcategory'], function() {
+    Route::get('/product/details/{slug}','Frontend\FrontendController@product')->name('product');
+});
+
+//                  CART ROUTE
+
+Route::post('add-to-cart','Frontend\CartController@add')->name('cart-add');
+Route::get('cart/show','Frontend\CartController@show')->name('cart-show');
 
 
