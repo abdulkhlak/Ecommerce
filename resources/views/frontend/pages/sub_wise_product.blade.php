@@ -14,7 +14,7 @@
               @else
                     @foreach($products as $product)
 
-                        <div class="col-md-2 grid grid-cols-3 gap-3 lg:grid-cols-5 md:grid-cols-3">
+                        <div class="col-md-3 grid grid-cols-3 gap-3 lg:grid-cols-5 md:grid-cols-3">
                             <div class="product">
                                 <div class="product-image">
                                     <div class="image"><a href="{{route('product',$product->slug)}}"><img

@@ -20,7 +20,9 @@ class CategoriesTableSeeder extends Seeder
         foreach (range(1,13) as $index)
         {
             $category = $faker->name;
+
             foreach ($categories as $category){
+
                 categories::create([
                     'category_name'=>$category,
                     'category_logo'=>$faker->imageUrl(),

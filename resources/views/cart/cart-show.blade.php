@@ -26,7 +26,6 @@
                                 <th class="cart-edit item">Edit</th>
                                 <th class="cart-qty item">Quantity</th>
                                 <th class="cart-sub-total item">Subtotal</th>
-                                <th class="cart-total last-item">Grandtotal</th>
                             </tr>
                             </thead><!-- /thead -->
                             <tfoot>
@@ -44,12 +43,16 @@
                             <tbody>
                       @foreach($items as $item)
                             <tr>
-                                <td class="romove-item"><a href="#" title="cancel" class="icon"><i class="fa fa-trash-o"></i></a></td>
+                                <td class="romove-item"><a href="{{route('cart-remove', base64_encode
+                                     ($item->id))}}" title="cancel" class="icon"><i
+                                                class="fa
+                                fa-trash-o"></i></a></td>
                                 <td class="cart-image">
                                     <a class="entry-thumbnail" href="detail.html">
-                                        <img src="{{asset('upload/products/'.$item->image)}}" alt="">
+                                        <img src="{{asset('upload/products/'.$item->attributes[0]['image'])}}" alt="">
                                     </a>
                                 </td>
+
                                 <td class="cart-product-name-info">
                                     <h4 class='cart-product-description'><a href="detail.html">{{$item->name}}</a></h4>
                                     <div class="row">
@@ -76,15 +79,17 @@
                                         <input type="text" value="{{$item->quantity}}">
                                     </div>
                                 </td>
-                                <td class="cart-product-sub-total"><span class="cart-sub-total-price">$300.00</span></td>
-                                <td class="cart-product-grand-total"><span class="cart-grand-total-price">$300.00</span></td>
+                                <td class="cart-product-sub-total"><span
+                                            class="cart-sub-total-price">{{$item->quantity*$item->price}}</span></td>
+
                             </tr>
                           @endforeach
 
                             </tbody><!-- /tbody -->
                         </table><!-- /table -->
                     </div>
-                </div><!-- /.shopping-cart-table -->				<div class="col-md-4 col-sm-12 estimate-ship-tax">
+                </div><!-- /.shopping-cart-table -->
+                <div class="col-md-4 col-sm-12 estimate-ship-tax">
                     <table class="table">
                         <thead>
                         <tr>
@@ -163,7 +168,7 @@
                         <tr>
                             <th>
                                 <div class="cart-sub-total">
-                                    Subtotal<span class="inner-left-md">$600.00</span>
+                                    Subtotal<span class="inner-left-md">$666</span>
                                 </div>
                                 <div class="cart-grand-total">
                                     Grand Total<span class="inner-left-md">$600.00</span>

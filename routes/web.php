@@ -112,5 +112,7 @@ Route::group(['prefix' => 'category'], function() {
 
 Route::post('add-to-cart','Frontend\CartController@add')->name('cart-add');
 Route::get('cart/show','Frontend\CartController@show')->name('cart-show');
+Route::get('cart/basket-show','Frontend\CartController@basketShow')->name('basket-show');
+Route::get('cart/remove/{id}','Frontend\CartController@remove')->name('cart-remove');
 
 

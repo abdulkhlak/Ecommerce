@@ -138,7 +138,7 @@
                                             <div class="col-sm-2">
                                                 <span class="label">Qty :</span>
                                             </div>
-
+                                            <form action="{{route('cart-add')}}" method="POST">
                                             <div class="col-sm-2">
                                                 <div class="cart-quantity">
                                                     <div class="quant-input">
@@ -146,11 +146,11 @@
                                                             <div class="arrow plus gradient"><span class="ir"><i class="icon fa fa-sort-asc"></i></span></div>
                                                             <div class="arrow minus gradient"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></div>
                                                         </div>
-                                                        <input type="text" value="">
+                                                        <input type="text" value="1" name="product_qty">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <form action="{{route('cart-add')}}" method="POST">
+
                                             <div class="col-sm-7">
                                                     @csrf
                                                 <input type="hidden" name="id" value="{{$product->id}}">
